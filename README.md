@@ -14,3 +14,11 @@
 ## 6.3 Preloading Font
 
 -   expo add expo-0font
+
+# 7 Redix Setup
+
+# 7.1 userSlice
+
+-   yarn add redux
+-   yarn add react-redux
+-   yarn add @reduxjs/toolkit
