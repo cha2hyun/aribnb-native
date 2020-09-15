@@ -16,8 +16,8 @@ const InputContainer = styled.View`
 `;
 
 export default ({ route: { params } }) => {
-    const [username, setUsername] = useState(params.email);
-    const [password, setPassword] = useState(params.password);
+    const [username, setUsername] = useState(params?.email);
+    const [password, setPassword] = useState(params?.password);
     const handleSubmit = () => {
         alert(`${username}, ${password}`);
     };
