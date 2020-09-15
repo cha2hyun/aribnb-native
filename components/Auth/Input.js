@@ -16,7 +16,7 @@ const Container = styled.TextInput`
     font-weight: 500;
 `;
 
-const Input = ({ value, placeholder, isPassword = false, autoCapitalize, stateFn }) => <Container value={value} placeholder={placeholder} secureTextEntry={isPassword ? true : false} autoCapitalize={autoCapitalize} onChangeText={(text) => stateFn(text)} />;
+const Input = ({ value, placeholder, isPassword = false, autoCapitalize, stateFn, keyboardType }) => <Container keyboardType={keyboardType} value={value} placeholder={placeholder} secureTextEntry={isPassword ? true : false} autoCapitalize={autoCapitalize} onChangeText={(text) => stateFn(text)} />;
 
 Input.propTypes = {
     value: PropTypes.string,

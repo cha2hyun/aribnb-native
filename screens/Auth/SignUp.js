@@ -4,6 +4,8 @@ import styled from "styled-components/native";
 import Btn from "../../components/Auth/Btn";
 import Input from "../../components/Auth/Input";
 import DismissKeyboard from "../../components/DismissKeyboard";
+import { isEmail } from "../../utils";
+import { createAccount } from "../../api";
 
 const Container = styled.View`
     flex: 1;
@@ -18,12 +20,33 @@ const InputContainer = styled.View`
 export default () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const handleSubmit = () => {
-        alert(`${username}, ${password}`);
+    const validateForm = () => {
+        if (firstName === "" || lastName === "" || email === "" || password === "") {
+            alert(`All field are required.`);
+            return;
+        }
+        if (!isEmail(email)) {
+            alert("Please add a valid email.");
+            return;
+        }
     };
-    const dismissKeybooard = () => Keyboard.dismiss();
+    const handleSubmit = async () => {
+        validateForm();
+        try {
+            const { status } = await createAccount({
+                first_name: firstName,
+                last_name: lastName,
+                email,
+                username: email,
+                password,
+            });
+            console.log(status);
+        } catch (e) {
+            console.warn(e);
+        }
+    };
 
     return (
         <DismissKeyboard>
@@ -31,9 +54,9 @@ export default () => {
                 <StatusBar barStyle="dark-content"></StatusBar>
                 <KeyboardAvoidingView behavior="position">
                     <InputContainer>
-                        <Input value={firstName} placeholder="First Name" autoCapitalize="none" stateFn={setFirstName} />
-                        <Input value={lastName} placeholder="Last Name" autoCapitalize="none" stateFn={setLastName} />
-                        <Input value={username} placeholder="Username" autoCapitalize="none" stateFn={setUsername} />
+                        <Input value={firstName} placeholder="First Name" autoCapitalize="words" stateFn={setFirstName} />
+                        <Input value={lastName} placeholder="Last Name" autoCapitalize="words" stateFn={setLastName} />
+                        <Input value={email} placeholder="Email" autoCapitalize="none" stateFn={setEmail} keyboardType={"email-address"} />
                         <Input value={password} placeholder="Password" isPassword={true} stateFn={setPassword} />
                     </InputContainer>
                     <Btn text={"Sign Up"} accent onPress={handleSubmit}></Btn>
