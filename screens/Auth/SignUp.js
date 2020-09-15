@@ -17,23 +17,28 @@ const InputContainer = styled.View`
     margin-bottom: 30px;
 `;
 
-export default () => {
+export default ({ navigation: { navigate } }) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const validateForm = () => {
+    const [loading, setLoading] = useState(false);
+    const isFormValid = () => {
         if (firstName === "" || lastName === "" || email === "" || password === "") {
             alert(`All field are required.`);
-            return;
+            return false;
         }
         if (!isEmail(email)) {
             alert("Please add a valid email.");
-            return;
+            return false;
         }
+        return true;
     };
     const handleSubmit = async () => {
-        validateForm();
+        if (!isFormValid()) {
+            return;
+        }
+        setLoading(true);
         try {
             const { status } = await createAccount({
                 first_name: firstName,
@@ -42,9 +47,15 @@ export default () => {
                 username: email,
                 password,
             });
-            console.log(status);
+            if (status === 201) {
+                alert("Account created. Sign in, please.");
+                navigate("SignIn", { email, password });
+            }
         } catch (e) {
+            alert("The email is taken");
             console.warn(e);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -59,7 +70,7 @@ export default () => {
                         <Input value={email} placeholder="Email" autoCapitalize="none" stateFn={setEmail} keyboardType={"email-address"} />
                         <Input value={password} placeholder="Password" isPassword={true} stateFn={setPassword} />
                     </InputContainer>
-                    <Btn text={"Sign Up"} accent onPress={handleSubmit}></Btn>
+                    <Btn loading={loading} text={"Sign Up"} accent onPress={handleSubmit}></Btn>
                 </KeyboardAvoidingView>
             </Container>
         </DismissKeyboard>
