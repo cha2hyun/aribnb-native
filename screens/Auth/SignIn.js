@@ -11,12 +11,14 @@ const Container = styled.View`
 const TextInput = styled.TextInput``;
 
 export default () => {
-    const handleSubmit = () => alert("Sending data...");
+    const handleSubmit = () => {
+        alert("Sending data...");
+    };
     return (
         <Container>
             <TextInput placeholder="Username"></TextInput>
             <TextInput placeholder="Password" secureTextEntry></TextInput>
-            <Btn text={"Sign In"} accent onPress={handleSubmit}></Btn>
+            <Btn text={"Sign In"} accent="true" onPress={handleSubmit}></Btn>
         </Container>
     );
 };
