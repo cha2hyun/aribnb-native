@@ -31,6 +31,7 @@
     "react-native-screens": "~2.9.0",
     "react-native-swiper": "1.6.0",
     "react-native-web": "~0.11.7",
+    "react-native-web-swiper": "2.1.7",
     "react-redux": "7.2.1",
     "react-swiper": "0.1.5",
     "redux": "4.0.5",
