@@ -9,7 +9,7 @@ const { width } = Dimensions.get("screen");
 const Button = styled.View`
     margin-bottom: 25px;
     border: 1px solid ${(props) => (props.accent ? "transparent" : colors.black)};
-    border-radius: 15px;
+    border-radius: 30px;
     padding: 12.5px 0px;
     align-items: center;
     width: ${width / 1.5}px;
@@ -22,7 +22,7 @@ const Text = styled.Text`
     color: ${(props) => (props.accent ? "white" : colors.black)};
 `;
 
-const Btn = ({ loading, onPress, text, accent = false }) => (
+const Btn = ({ loading = false, onPress, text, accent = false }) => (
     <TouchableOpacity onPress={loading ? null : onPress}>
         <Button accent={accent}>{loading ? <ActivityIndicator color={accent ? "white" : "black"} /> : <Text accent={accent}>{text}</Text>}</Button>
     </TouchableOpacity>
