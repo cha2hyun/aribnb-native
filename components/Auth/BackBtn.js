@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 
 import { Ionicons } from "@expo/vector-icons";
-import { isAndroid } from "../../utils";
+import utils, { isAndroid } from "../../utils";
 
 const Container = styled.View`
     padding-left: 20px;
