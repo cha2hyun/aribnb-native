@@ -26,7 +26,7 @@ const FakeText = styled.Text`
     font-weight: 300;
 `;
 
-export default ({ rooms }) => {
+export default ({ rooms, increasePage }) => {
     return (
         <Container>
             {rooms.length === 0 ? (
@@ -40,7 +40,7 @@ export default ({ rooms }) => {
                         {rooms.map((room) => (
                             <RoomCard key={room.id} name={room.name} price={room.price} photos={room.photos} id={room.id} isFav={room.is_fav} isSuperHost={room.user.superhost} />
                         ))}
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={increasePage}>
                             <Text>Load More</Text>
                         </TouchableOpacity>
                     </ScrollView>
