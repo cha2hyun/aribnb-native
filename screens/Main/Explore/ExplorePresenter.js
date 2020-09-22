@@ -52,7 +52,7 @@ export default ({ rooms, increasePage }) => {
                     </FakeBar>
                     <ScrollView showsVerticalScrollIndicator={false} style={{ width: "100%" }} contentContainerStyle={{ paddingTop: 30 }}>
                         {rooms.map((room) => (
-                            <RoomCard key={room.id} name={room.name} price={room.price} photos={room.photos} id={room.id} isFav={room.is_fav} isSuperHost={room.user.superhost} />
+                            <RoomCard key={room.id} name={room.name} price={room.price} photos={room.photos} id={room.id} isFav={room.is_fav} isSuperHost={room.user.superhost} roomObj={room} />
                         ))}
                         <TouchableOpacity onPress={increasePage}>
                             <LoadMore>
