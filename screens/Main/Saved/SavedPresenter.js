@@ -18,7 +18,7 @@ const NoFavs = styled.Text``;
 
 export default ({ rooms }) => (
     <Container>
-        <Title>Favourites</Title>
+        <Title>Favourites ({rooms.length})</Title>
         <SV showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 50 }}>
             {rooms.length !== 0 ? rooms.map((room) => <RoomCard key={room.id} name={room.name} price={room.price} photos={room.photos} id={room.id} isFav={room.is_fav} isSuperHost={room.user.superhost} />) : <NoFavs>You don't have any favs.</NoFavs>}
         </SV>
