@@ -78,14 +78,27 @@ const TOpacity = styled.TouchableOpacity`
     right: 10px;
     top: 10px;
 `;
-
+function getIconName(isFav) {
+    const isAndroid = utils.isAndroid();
+    if (isAndroid) {
+        if (isFav) {
+            return "md-heart";
+        }
+        return "md-heart-empty";
+    } else {
+        if (isFav) {
+            return "ios-heart";
+        }
+        return "ios-heart-empty";
+    }
+}
 const RoomCard = ({ id, isFav, isSuperHost, photos, name, price }) => {
     const dispatch = useDispatch();
     return (
         <Container>
             <TOpacity onPress={() => dispatch(toggleFav(id))}>
                 <FavButton>
-                    <Ionicons size={28} color={isFav ? colors.red : "black"} name={utils.isAndroid() ? "md-heart-empty" : "ios-heart-empty"} />
+                    <Ionicons size={28} color={isFav ? colors.red : "black"} name={getIconName(isFav)} />
                 </FavButton>
             </TOpacity>
             <PhotosContainer>
