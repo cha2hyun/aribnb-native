@@ -2,10 +2,14 @@ import SavedContainer from "./SavedContainer";
 import { getFavs } from "../../../redux/usersSlice";
 import { connect } from "react-redux";
 
-function mapDispatchToProps(dispatch) {
-  return {
-    getFavs: () => dispatch(getFavs())
-  };
+function mapStateToProps(state) {
+    return { rooms: state.roomsReducer.favs };
 }
 
-export default connect(null, mapDispatchToProps)(SavedContainer);
+function mapDispatchToProps(dispatch) {
+    return {
+        getFavs: () => dispatch(getFavs()),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SavedContainer);

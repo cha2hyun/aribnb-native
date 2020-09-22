@@ -3,7 +3,7 @@ import api from "../../../api";
 import utils from "../../../utils";
 import SignUpPresenter from "./SignUpPresenter";
 
-export default ({ navigation: { navigate } }) => {
+export default ({ route: { params } }) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");

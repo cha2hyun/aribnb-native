@@ -7,6 +7,7 @@ import Swiper from "react-native-web-swiper";
 import utils from "../utils";
 import { useDispatch } from "react-redux";
 import { toggleFav } from "../redux/usersSlice";
+import colors from "../colors";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -84,7 +85,7 @@ const RoomCard = ({ id, isFav, isSuperHost, photos, name, price }) => {
         <Container>
             <TOpacity onPress={() => dispatch(toggleFav(id))}>
                 <FavButton>
-                    <Ionicons size={28} name={utils.isAndroid() ? "md-heart-empty" : "ios-heart-empty"} />
+                    <Ionicons size={28} color={isFav ? colors.red : "black"} name={utils.isAndroid() ? "md-heart-empty" : "ios-heart-empty"} />
                 </FavButton>
             </TOpacity>
             <PhotosContainer>
