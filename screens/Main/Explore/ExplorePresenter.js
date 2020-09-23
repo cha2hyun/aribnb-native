@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { ActivityIndicator, ScrollView, TouchableOpacity, Text } from "react-native";
+import { ActivityIndicator, ScrollView, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import RoomCard from "../../../components/RoomCard";
+import { useNavigation } from "@react-navigation/native";
 
 const Container = styled.View`
     flex: 1;
@@ -34,6 +35,7 @@ const LoadMore = styled.View`
     border-radius: 5px;
     margin-bottom: 30px;
 `;
+
 const LoadMoreText = styled.Text`
     color: white;
     font-size: 18px;
@@ -41,15 +43,18 @@ const LoadMoreText = styled.Text`
 `;
 
 export default ({ rooms, increasePage }) => {
+    const navigation = useNavigation();
     return (
         <Container>
             {rooms.length === 0 ? (
                 <ActivityIndicator color="black" />
             ) : (
                 <>
-                    <FakeBar>
-                        <FakeText>Search...</FakeText>
-                    </FakeBar>
+                    <TouchableWithoutFeedback onPress={() => navigation.navigate("Search")}>
+                        <FakeBar>
+                            <FakeText>Search...</FakeText>
+                        </FakeBar>
+                    </TouchableWithoutFeedback>
                     <ScrollView showsVerticalScrollIndicator={false} style={{ width: "100%" }} contentContainerStyle={{ paddingTop: 30 }}>
                         {rooms.map((room) => (
                             <RoomCard key={room.id} name={room.name} price={room.price} photos={room.photos} id={room.id} isFav={room.is_fav} isSuperHost={room.user.superhost} roomObj={room} />

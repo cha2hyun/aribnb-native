@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
+import MapView, { Marker } from "react-native-maps";
 import RoomPhotos from "../../components/RoomPhotos";
 import colors from "../../colors";
 import utils from "../../utils";
@@ -51,6 +52,12 @@ const CheckTime = styled.Text`
     margin-top: 10px;
 `;
 
+const MapContainer = styled.View`
+    width: 100%;
+    height: 200px;
+    margin-top: 30px;
+`;
+
 function formatQtt(number, name) {
     if (number === 1) {
         return `${number} ${name}`;
@@ -72,7 +79,9 @@ export default ({ route: { params }, navigation }) => {
         <Container>
             <RoomPhotos photos={params.photos} factor={2} />
             <DataContainer>
-                <Address>{params.address}</Address>
+                <Address>
+                    {params.address} / ${params.price}
+                </Address>
                 <PropertyInfoContainer>
                     <PropertyInfoData>
                         <PropertyInfoText>{formatQtt(params.beds, "bed")}</PropertyInfoText>
@@ -93,6 +102,11 @@ export default ({ route: { params }, navigation }) => {
                         {formatTime(params.check_in)}/{formatTime(params.check_out)}
                     </CheckTime>
                 </CheckContainer>
+                <MapContainer>
+                    <MapView style={{ height: "100%", width: "100%" }} camera={{ center: { latitude: parseFloat(params.lat), longitude: parseFloat(params.lng) }, altitude: 10 * 200, pitch: 50, heading: 10, zoom: 10 * 400 }} zoomEnabled={false} scrollEnabled={false}>
+                        <Marker coordinate={{ latitude: parseFloat(params.lat), longitude: parseFloat(params.lng) }} />
+                    </MapView>
+                </MapContainer>
             </DataContainer>
         </Container>
     );
