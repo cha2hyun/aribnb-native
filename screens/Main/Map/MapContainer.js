@@ -29,9 +29,11 @@ export default ({ rooms }) => {
     };
 
     useEffect(() => {
-        if (currentIndex !== 0) {
-            moveMap();
-        }
+        moveMap();
+
+        // if (currentIndex !== 0) {
+        //     moveMap();
+        // }
     }, [currentIndex]);
     const handleRegionChange = async () => {
         console.log("Changed!");
