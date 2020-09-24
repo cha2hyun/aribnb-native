@@ -1,24 +1,6 @@
 # Aribnb React Native App
 
-# 6 App Setup
+## To Do
 
-## 6.1 Setup
-
--   yarn gloabl add expo-cli
--   expo init APPNAME
-
-## 6.2 Preloading Images
-
--   yarn add expo-asset
-
-## 6.3 Preloading Font
-
--   expo add expo-0font
-
-# 7 Redix Setup
-
-# 7.1 userSlice
-
--   yarn add redux
--   yarn add react-redux
--   yarn add @reduxjs/toolkit
+-   Profile 추가하기
+-   Map에서 스크롤해서 서칭하기
