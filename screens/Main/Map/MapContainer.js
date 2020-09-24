@@ -16,18 +16,31 @@ export default ({ rooms }) => {
         const position = Math.abs(Math.round(x / width));
         setCurrentIndex(position);
     };
+    const moveMap = () => {
+        mapRef.current?.animateCamera(
+            {
+                center: {
+                    latitude: parseFloat(rooms[currentIndex].lat),
+                    longitude: parseFloat(rooms[currentIndex].lng),
+                },
+            },
+            { duration: 3000 }
+        );
+    };
+
     useEffect(() => {
         if (currentIndex !== 0) {
-            mapRef.current?.animateCamera(
-                {
-                    center: {
-                        latitude: parseFloat(rooms[currentIndex].lat),
-                        longitude: parseFloat(rooms[currentIndex].lng),
-                    },
-                },
-                { duration: 3000 }
-            );
+            moveMap();
         }
     }, [currentIndex]);
-    return <MapPresenter rooms={rooms} mapRef={mapRef} currentIndex={currentIndex} onScroll={onScroll} />;
+    const handleRegionChange = async () => {
+        console.log("Changed!");
+        try {
+            const { northEast, southWest } = await mapRef.current?.getMapBoundaries();
+            console.log(northEast, southWest);
+        } catch (e) {
+            console.warn(e);
+        }
+    };
+    return <MapPresenter rooms={rooms} mapRef={mapRef} currentIndex={currentIndex} onScroll={onScroll} onRegionChangeComplete={handleRegionChange} />;
 };
