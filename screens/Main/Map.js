@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
 import { StyleSheet, Dimensions } from "react-native";
 import { connect } from "react-redux";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -27,6 +27,7 @@ const RoomCard = styled.View`
     background-color: white;
     width: ${width - 80}px;
     height: 120px;
+    margin-right: 20px;
     border-radius: 10px;
     padding: 0px 20px;
     flex-direction: row;
@@ -54,6 +55,16 @@ const RoomPrice = styled.Text`
 `;
 
 const Map = ({ rooms }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const onScroll = (e) => {
+        const {
+            nativeEvent: {
+                contentOffset: { x },
+            },
+        } = e;
+        const position = Math.abs(Math.round(x / width));
+        setCurrentIndex(position);
+    };
     return (
         <Container>
             <MapView
@@ -63,13 +74,23 @@ const Map = ({ rooms }) => {
                         latitude: parseFloat(rooms[0].lat),
                         longitude: parseFloat(rooms[0].lng),
                     },
-                    altitude: 700,
+                    altitude: 1000,
                     pitch: 0,
                     heading: 0,
                     zoom: 10,
                 }}
-            />
-            <ScrollView showsHorizontalScrollIndicator={false} pagingEnabled horizontal>
+            >
+                {rooms?.map((room) => (
+                    <Marker
+                        key={room.id}
+                        coordinate={{
+                            latitude: parseFloat(room.lat),
+                            longitude: parseFloat(room.lng),
+                        }}
+                    />
+                ))}
+            </MapView>
+            <ScrollView scrollEventThrottle={50} onScroll={onScroll} showsHorizontalScrollIndicator={false} pagingEnabled horizontal>
                 {rooms?.map((room) => (
                     <RoomContainer key={room.id}>
                         <RoomCard>
